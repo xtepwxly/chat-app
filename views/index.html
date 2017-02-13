@@ -9,12 +9,32 @@
 
 <body>
     <main role="main" class="chat-window">
-        <ul class="messages"></ul>
-        <form action="" class="active-panel">
-            <input id="current-message" type="text" name="current-message" value="" autocomplete="off">
+        <ul id="messages"></ul>
+        <form id="chat-input" action="">
+            <input id="typed-message" type="text" name="typed-message" value="" autocomplete="off">
             <button type="button" id="send">Send</button>
         </form>
     </main>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        var form = document.querySelector('#chat-input');
+        var messageInput = document.querySelector('#typed-message');
+        var messages = document.querySelector('#messages');
+
+        socket.on('message_send', function(msg) {
+            var textNode = document.createTextNode(msg);
+            var li = document.createElement('li');
+            li.appendChild(textNode);
+            messages.appendChild(li);
+        });
+
+        form.addEventListener('click', function(e) {
+            e.preventDefault();
+            socket.emit('message_send', messageInput.value);
+            messageInput.value = '';
+        });
+    </script>
 </body>
 
 </html>
