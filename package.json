@@ -1,0 +1,26 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "Simple Chat Application Written on Socket.io",
+  "main": "chat.js",
+  "scripts": {
+    "dev": "nodemon chat.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nnutthowze/chat-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nnutthowze/chat-app/issues"
+  },
+  "homepage": "https://github.com/Nnutthowze/chat-app#readme",
+  "dependencies": {
+    "express": "^4.14.1",
+    "socket.io": "^1.7.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
