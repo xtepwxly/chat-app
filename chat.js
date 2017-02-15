@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
-const io = require('socket.io').listen(server);
+const io = require('socket.io')(server);
 const path = require('path');
 const port = process.env.PORT || 3000;
 
@@ -10,8 +10,8 @@ app.use('/assets', express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'views/index.html')));
 
 io.on('connection', socket => {
-    socket.on('message_send', msg => {
-        io.emit('message_send', msg);
+    socket.on('messageRecieve', msg => {
+        io.emit('messageSend', msg);
     });
 });
 
