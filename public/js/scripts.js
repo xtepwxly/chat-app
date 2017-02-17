@@ -6,19 +6,36 @@
 
     var socket = io();
     var form = document.querySelector('#chat-input');
+    var messageInput = document.querySelector('#typed-message');
+    var whoIsTyping = document.querySelector('#who-typing');
+    var timeout = null;
 
     socket.emit('join', name);
 
-    socket.on('message.send', addText);
+    socket.on('chat', addText);
     socket.on('user.connect', addText);
     socket.on('user.disconnect', addText);
+    socket.on('user.typing', displayWhoIsTyping);
 
     form.addEventListener('submit', function(e) {
-        var messageInput = document.querySelector('#typed-message');
-        socket.emit('message.receive', messageInput.value);
+        socket.emit('chat', messageInput.value);
         messageInput.value = '';
         e.preventDefault();
     });
+
+    messageInput.onkeypress = function() {
+        socket.emit('user.typing');
+    };
+
+    function displayWhoIsTyping(msg) {
+        whoIsTyping.textContent = msg;
+        if (timeout) {
+            timeout = null;
+        }
+        timeout = setTimeout(function() {
+            whoIsTyping.textContent = '';
+        }, 1000);
+    }
 
     function addText(msg) {
         var messages = document.querySelector('#messages');
