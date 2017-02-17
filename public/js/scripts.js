@@ -1,16 +1,23 @@
 (function() {
+    var name = '';
+    do {
+        name = prompt('Enter your chat name:');
+    } while (name.length < 1);
+
     var socket = io();
     var form = document.querySelector('#chat-input');
-    var messageInput = document.querySelector('#typed-message');
+
+    socket.emit('join', name);
 
     socket.on('message.send', addText);
     socket.on('user.connect', addText);
     socket.on('user.disconnect', addText);
 
     form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        socket.emit('message.recieve', messageInput.value);
+        var messageInput = document.querySelector('#typed-message');
+        socket.emit('message.receive', messageInput.value);
         messageInput.value = '';
+        e.preventDefault();
     });
 
     function addText(msg) {
