@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
@@ -38,5 +40,7 @@ server.listen(port);
 
 
 // TODO:
+// 3. Create decent UI
+// 4. Join Rooms
 // 5. Show who’s online
 // 6. Add private messaging

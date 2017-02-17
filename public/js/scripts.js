@@ -1,4 +1,6 @@
 (function() {
+    'use strict';
+
     var name = '';
     do {
         name = prompt('Enter your chat name:');

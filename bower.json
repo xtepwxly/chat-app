@@ -1,0 +1,20 @@
+{
+  "name": "chat-app",
+  "description": "Simple Chat Application Written on Socket.io",
+  "main": "chat.js",
+  "authors": [
+    "Nnutthowze <briareibismuth@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Nnutthowze/chat-app",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
