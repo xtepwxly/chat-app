@@ -10,8 +10,14 @@ app.use('/assets', express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'views/index.html')));
 
 io.on('connection', socket => {
-    socket.on('messageRecieve', msg => {
-        io.emit('messageSend', msg);
+    socket.broadcast.emit('user.connect', 'user connected');
+
+    socket.on('message.receive', msg => {
+        io.emit('message.send', msg);
+    });
+
+    socket.on('disconnect', () => {
+        socket.broadcast.emit('user.disconnect', 'user disconnected');
     });
 });
 
@@ -19,7 +25,6 @@ server.listen(port);
 
 
 // TODO:
-// 1. Broadcast a message to connected users when someone connects or disconnects
 // 2. Add support for nicknames
 // 3. Don’t send the same message to the user that sent it himself. Instead, append the message directly as soon as he presses enter.
 // 4. Add “{user} is typing” functionality
